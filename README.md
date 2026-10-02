@@ -1,8 +1,8 @@
-# Membox
+# `memBox`: a concurrent memory storage
 
 Membox is a concurrent, multi-threaded server written in C (POSIX threads + `AF_UNIX` sockets) that implements an in-memory **object repository**: a store of non-empty byte sequences (*objects*), each identified by a numeric key. Clients connect over a Unix domain socket and can insert, update, read and remove objects, and acquire an exclusive lock on the whole repository.
 
-It was developed by Matteo Giorgi and Andrea Quarta as the final project for the *Laboratorio di Sistemi Operativi * (Operating Systems Lab) course at the Department of Computer Science, University of Pisa; the original specification and the project report are both in Italian:
+It was developed by Matteo Giorgi and Andrea Quarta as the final project for the *Laboratorio di Sistemi Operativi* (Operating Systems Lab) course at the Department of Computer Science, University of Pisa; the original specification and the project report are both in Italian:
 
 - [Project specs](membox16.pdf) (`membox16.pdf`)
 - [Project report](relazione.pdf) (`relazione.pdf`)
@@ -131,15 +131,15 @@ Every field is sent in the host's native binary form (the client and server alwa
 **Request**
 
 ```
-header:  op_t op (int)  |  membox_key_t key (unsigned long)
-body:    unsigned int len  |  char buf[len]          (PUT and UPDATE only)
+header:  op_t op (int)     |  membox_key_t key (unsigned long)
+body:    unsigned int len  |  char buf[len]  ->  (PUT and UPDATE only)
 ```
 
 **Reply**
 
 ```
 header:  op_t result (int)  |  membox_key_t key (unsigned long)
-body:    unsigned int len  |  char buf[len]          (successful GET only)
+body:    unsigned int len   |  char buf[len]  ->  (successful GET only)
 ```
 
 Reply codes (from `ops.h`):
